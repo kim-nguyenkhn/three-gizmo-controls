@@ -23,6 +23,7 @@
     <!-- <div id="root"></div> -->
 
     <script src="js/three.js"></script>
+    <script src="js/controls/TransformControls.js"></script>
     <script>
       var camera, scene, renderer, control, orbit;
 
@@ -52,9 +53,17 @@
         var geometry = new THREE.BoxBufferGeometry(200, 200, 200);
         var material = new THREE.MeshLambertMaterial({ map: texture, transparent: true });
 
-        // orbit = new THREE.OrbitControls(camera, renderer.domElement);
-        // orbit.update();
-        // orbit.addEventListener(render);
+        var mesh = new THREE.Mesh( geometry, material );
+        scene.add( mesh );
+        
+        control = new THREE.TransformControls(camera, renderer.domElement);
+        control.addEventListener('change', render);
+        // control.addEventListener('dragging-changed', function(event) {
+        //   orbit.enabled = !event.value;
+        // });
+
+        control.attach(mesh);
+        scene.add(control);
       }
 
       function render() {
