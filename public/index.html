@@ -23,6 +23,7 @@
     <!-- <div id="root"></div> -->
 
     <script src="js/three.js"></script>
+    <script src="js/controls/OrbitControls.js"></script>
     <script src="js/controls/TransformControls.js"></script>
     <script>
       var camera, scene, renderer, control, orbit;
@@ -56,11 +57,15 @@
         var mesh = new THREE.Mesh( geometry, material );
         scene.add( mesh );
         
+        orbit = new THREE.OrbitControls(camera, renderer.domElement);
+        orbit.update();
+        orbit.addEventListener('change', render);
+
         control = new THREE.TransformControls(camera, renderer.domElement);
         control.addEventListener('change', render);
-        // control.addEventListener('dragging-changed', function(event) {
-        //   orbit.enabled = !event.value;
-        // });
+        control.addEventListener('dragging-changed', function(event) {
+          orbit.enabled = !event.value;
+        });
 
         control.attach(mesh);
         scene.add(control);
@@ -68,13 +73,13 @@
         window.addEventListener('resize', onWindowResize, false);
         window.addEventListener('keydown', function(event) {
           switch(event.keyCode) {
-            case 87: // W
+            case 84: // T
               control.setMode('translate');
               break;
-            case 69: // E
+            case 82: // R
               control.setMode('rotate');
               break;
-            case 82: // R
+            case 83: // S
               control.setMode('scale');
               break;
 
