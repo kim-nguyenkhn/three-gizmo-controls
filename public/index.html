@@ -48,6 +48,7 @@
         light.position.set(1, 1, 1);
         scene.add(light);
 
+        // TODO: Draw sides of a cuboid & figure out how to trim edges
         var texture = new THREE.TextureLoader().load('textures/crate.gif', render);
         texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
